@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ojuola Ayomikun — Social Media Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #e8441a;
+    --accent2: #f5b740;
+    --muted: #7a7468;
+    --border: #2a2a2a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: normal;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    opacity: 0.5;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    mix-blend-mode: normal;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 48px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 8vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    margin-top: 32px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 380px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--white);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #c73510;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--white);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-graphic {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .big-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(180px, 22vw, 320px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+    user-select: none;
+    line-height: 1;
+    animation: fadeIn 1.2s ease 0.5s both;
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 80px;
+    right: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .stat {
+    text-align: right;
+    border-right: 2px solid var(--accent);
+    padding-right: 20px;
+  }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Diagonal accent line */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    transform: translateX(-50%);
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 16px 0;
+    background: var(--accent);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--white);
+    white-space: nowrap;
+    padding: 0 48px;
+  }
+
+  .marquee-item span {
+    color: rgba(255,255,255,0.4);
+    margin-left: 8px;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 120px 48px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 64px;
+  }
+
+  /* ABOUT */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    border-top: 1px solid var(--border);
+  }
+
+  .about-left {}
+
+  .about-text {
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .about-text strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .about-right {
+    padding-top: 80px;
+  }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .highlight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .highlight-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .highlight-value {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  /* SKILLS */
+  #skills {
+    background: var(--cream);
+    color: var(--black);
+    border-top: 1px solid #d5cfc3;
+  }
+
+  #skills .section-title {
+    color: var(--black);
+  }
+
+  #skills .section-label {
+    color: var(--accent);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: #d5cfc3;
+    border: 2px solid #d5cfc3;
+  }
+
+  .skill-card {
+    background: var(--cream);
+    padding: 40px 32px;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+
+  .skill-card:hover::before { height: 100%; }
+  .skill-card:hover { background: #f0ece3; }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .skill-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a5650;
+  }
+
+  /* CASE STUDIES */
+  #cases {
+    border-top: 1px solid var(--border);
+  }
+
+  .cases-intro {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 64px;
+    margin-top: -40px;
+  }
+
+  .case-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .case-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr auto;
+    align-items: center;
+    gap: 40px;
+    padding: 36px 40px;
+    background: #111;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+
+  .case-item:hover {
+    background: #161616;
+    border-left-color: var(--accent);
+  }
+
+  .case-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--border);
+    transition: color 0.2s;
+  }
+
+  .case-item:hover .case-num { color: var(--accent); }
+
+  .case-info {}
+
+  .case-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .case-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .case-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .case-result {
+    text-align: center;
+  }
+
+  .case-result-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--accent2);
+    line-height: 1;
+  }
+
+  .case-result-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .case-arrow {
+    font-size: 20px;
+    color: var(--border);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .case-item:hover .case-arrow {
+    color: var(--white);
+    transform: translateX(4px);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--accent);
+    color: var(--white);
+    text-align: center;
+    padding: 120px 48px;
+  }
+
+  #contact .section-label { color: rgba(255,255,255,0.6); }
+  #contact .section-title { color: var(--white); margin-bottom: 24px; }
+
+  .contact-sub {
+    font-size: 16px;
+    opacity: 0.7;
+    margin-bottom: 56px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-block;
+    padding: 16px 40px;
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .contact-link:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+  }
+
+  .contact-link.dark {
+    background: var(--black);
+    border-color: var(--black);
+  }
+
+  .contact-link.dark:hover { background: #1a1a1a; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--muted);
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 100px;
+    }
+
+    .hero-left { padding: 48px 24px 40px; }
+    .hero::after { display: none; }
+    .hero-right { height: 200px; }
+    .hero-stats { bottom: 24px; right: 24px; flex-direction: row; gap: 24px; }
+    .stat { text-align: left; border-right: none; border-left: 2px solid var(--accent); padding-right: 0; padding-left: 16px; }
+
+    section { padding: 80px 24px; }
+    #about { grid-template-columns: 1fr; gap: 40px; }
+    .about-right { padding-top: 0; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .case-item { grid-template-columns: 40px 1fr; gap: 16px; padding: 24px; }
+    .case-result, .case-arrow { display: none; }
+    #contact { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">OA</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#cases">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-tag">Social Media Manager · Lagos, Nigeria</p>
+    <h1 class="hero-name">
+      Ojuola
+      <span>Ayomikun</span>
+    </h1>
+    <p class="hero-desc">
+      I turn brand stories into scroll-stopping content. Strategy-first, copy-obsessed, results-driven — managing multi-client social ecosystems across tech, faith, and lifestyle.
+    </p>
+    <div class="hero-cta">
+      <a href="#cases" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-graphic">
+      <div class="big-number">SM</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Active Clients</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Brands Managed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Content Strategy <span>✦</span></div>
+    <div class="marquee-item">Caption Writing <span>✦</span></div>
+    <div class="marquee-item">Campaign Management <span>✦</span></div>
+    <div class="marquee-item">Brand Voice <span>✦</span></div>
+    <div class="marquee-item">Product Launches <span>✦</span></div>
+    <div class="marquee-item">Community Building <span>✦</span></div>
+    <div class="marquee-item">Google Ads <span>✦</span></div>
+    <div class="marquee-item">Content Calendars <span>✦</span></div>
+    <div class="marquee-item">Content Strategy <span>✦</span></div>
+    <div class="marquee-item">Caption Writing <span>✦</span></div>
+    <div class="marquee-item">Campaign Management <span>✦</span></div>
+    <div class="marquee-item">Brand Voice <span>✦</span></div>
+    <div class="marquee-item">Product Launches <span>✦</span></div>
+    <div class="marquee-item">Community Building <span>✦</span></div>
+    <div class="marquee-item">Google Ads <span>✦</span></div>
+    <div class="marquee-item">Content Calendars <span>✦</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">The person<br>behind the content</h2>
+    <p class="about-text">
+      I'm a <strong>social media strategist and content creator</strong> based in Lagos, Nigeria, with hands-on experience managing multiple client accounts simultaneously across diverse industries — from B2B tech to faith-based organisations to personal brands.
+    </p>
+    <p class="about-text">
+      My edge is <strong>speed without sacrificing quality</strong>. I build content systems, not just posts — developing brand voices, content calendars, and campaign frameworks that keep brands consistent and compelling across every platform.
+    </p>
+    <p class="about-text">
+      Whether it's a product launch, a sponsorship pitch, or Sunday's sermon recap — I write copy that sounds <strong>human, intentional, and on-brand</strong>.
+    </p>
+  </div>
+  <div class="about-right reveal">
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <span class="highlight-label">Location</span>
+        <span class="highlight-value">Lagos, Nigeria</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-label">Specialisation</span>
+        <span class="highlight-value">Social Media & Content Strategy</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-label">Industries</span>
+        <span class="highlight-value">Tech · Faith · Lifestyle · Real Estate</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-label">Platforms</span>
+        <span class="highlight-value">Instagram · LinkedIn · Facebook</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-label">Education</span>
+        <span class="highlight-value">B.Sc. + Digital Marketing Expertise</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-label">Availability</span>
+        <span class="highlight-value">Open to Opportunities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label reveal">What I Do</p>
+  <h2 class="section-title reveal">Services &<br>Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-icon">✍🏽</span>
+      <div class="skill-name">Content & Copywriting</div>
+      <p class="skill-desc">Short-form captions, graphic copy, email copy, and long-form content — written to sound human and convert. No filler, no fluff.</p>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-icon">📅</span>
+      <div class="skill-name">Content Strategy</div>
+      <p class="skill-desc">Monthly content calendars, campaign planning, and platform-specific strategies built around business goals and audience behaviour.</p>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-icon">🚀</span>
+      <div class="skill-name">Product & Brand Launches</div>
+      <p class="skill-desc">End-to-end launch content packages — from pre-launch teasers to go-live day assets and post-launch engagement content.</p>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-icon">🎯</span>
+      <div class="skill-name">Paid Ads Management</div>
+      <p class="skill-desc">Google Ads copy creation, campaign setup, and performance tracking — driving targeted traffic with clear, compelling ad creative.</p>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-icon">📊</span>
+      <div class="skill-name">Community Management</div>
+      <p class="skill-desc">Building engaged audiences through consistent brand voice, timely responses, and content that fosters real community connection.</p>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-icon">🤝</span>
+      <div class="skill-name">Sponsorship & Outreach</div>
+      <p class="skill-desc">Crafting compelling sponsorship proposals and partnership decks that open doors and close deals with corporate stakeholders.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <p class="section-label reveal">Portfolio</p>
+  <h2 class="section-title reveal">Selected<br>Work</h2>
+  <p class="cases-intro reveal">A cross-section of campaigns and projects across industries. Client names are kept general to respect confidentiality.</p>
+
+  <div class="case-list">
+
+    <div class="case-item reveal">
+      <div class="case-num">01</div>
+      <div class="case-info">
+        <div class="case-tag">B2B Tech · Product Launch</div>
+        <div class="case-title">Cloud Platform Go-Live Campaign</div>
+        <div class="case-desc">Built the full brand and social strategy for <a href="https://www.softalliance.com" target="_blank" style="color:var(--accent2);text-decoration:none;">SoftAlliance</a>'s SoftKloud launch — from teaser content to go-live assets across <a href="https://www.instagram.com/softalliance/" target="_blank" style="color:var(--accent2);text-decoration:none;">Instagram</a>, <a href="https://ng.linkedin.com/company/soft-alliance" target="_blank" style="color:var(--accent2);text-decoration:none;">LinkedIn</a>, and Facebook. Increased qualified leads by 40% through optimized content and ad copy.</div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-num">40%</div>
+        <div class="case-result-label">More Qualified Leads</div>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">02</div>
+      <div class="case-info">
+        <div class="case-tag">B2B Tech · Paid Advertising</div>
+        <div class="case-title">HR Software Google Ads Campaign</div>
+        <div class="case-desc">Developed Google Ads copy for <a href="https://www.instagram.com/softsuitehr/" target="_blank" style="color:var(--accent2);text-decoration:none;">SoftSUITE HR</a>, an HR and payroll software product under SoftAlliance targeting businesses across Nigeria. Optimized landing pages and ad copy, improving CTR by 25% and reducing bounce rates by 15%.</div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-num">25%</div>
+        <div class="case-result-label">CTR Improvement</div>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">03</div>
+      <div class="case-info">
+        <div class="case-tag">Faith Organisation · Content Management</div>
+        <div class="case-title">Multi-Platform Church Content Strategy</div>
+        <div class="case-desc">Managed ongoing Instagram and Facebook content for <a href="https://www.instagram.com/arisechurchrca/" target="_blank" style="color:var(--accent2);text-decoration:none;">RCCG Arise Church</a> (Riverside, CA) and <a href="https://rccgchapelofrestoration.org/" target="_blank" style="color:var(--accent2);text-decoration:none;">RCCG Chapel of Restoration</a> (Bronx, NY) — sermon recaps, service announcements, and series-based content. Increased follower interaction by 60%.</div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-num">60%</div>
+        <div class="case-result-label">Follower Interaction ↑</div>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">04</div>
+      <div class="case-info">
+        <div class="case-tag">Corporate · Sponsorship</div>
+        <div class="case-title">Conference Sponsorship Proposal</div>
+        <div class="case-desc">Crafted a Silver Package sponsorship proposal for an international civil service conference, positioning a tech company for maximum brand visibility among government and institutional stakeholders.</div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-num">✓</div>
+        <div class="case-result-label">Proposal Delivered</div>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">05</div>
+      <div class="case-info">
+        <div class="case-tag">Personal Brand · LinkedIn</div>
+        <div class="case-title">Executive Voice & Thought Leadership</div>
+        <div class="case-desc">Ghostwrote LinkedIn content for a senior executive in the Nigerian tech sector — developing a consistent personal brand voice balancing authority, industry insight, and authentic storytelling. Managed C-level communications to strengthen brand visibility.</div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-num">90%</div>
+        <div class="case-result-label">Brand Visibility ↑</div>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Work</p>
+  <h2 class="section-title">Ready when<br>you are.</h2>
+  <p class="contact-sub">Open to full-time roles, contracts, and collaborations.</p>
+  <div class="contact-links">
+    <a href="mailto:ojuolaayomikun9@gmail.com" class="contact-link dark">✉ Email Me</a>
+    <a href="tel:+2349055927451" class="contact-link dark">📞 +234 905 592 7451</a>
+    <a href="https://www.linkedin.com/in/ayomikun-oluwatuyi-ojuola-b517351b4" target="_blank" class="contact-link">LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Ojuola Ayomikun</div>
+  <div class="footer-copy">© 2026 · Social Media Manager · Lagos</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '6px';
+      cursor.style.height = '6px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+
+  function checkReveals() {
+    reveals.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 100) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  checkReveals();
+  window.addEventListener('scroll', checkReveals);
+  window.addEventListener('resize', checkReveals);
+  setTimeout(() => { reveals.forEach(el => el.classList.add('visible')); }, 1500);
+
+</script>
+</body>
+</html>
